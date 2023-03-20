@@ -53,5 +53,6 @@ public class SecurityConfigTest {
 
 
         //then
+        assertThat(status).isEqualTo(401);
     }
 }
