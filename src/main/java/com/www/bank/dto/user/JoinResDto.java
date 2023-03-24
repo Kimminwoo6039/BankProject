@@ -12,7 +12,6 @@ public class JoinResDto {
     private String username;
     private String fullname;
 
-
     public JoinResDto(User user) {
         this.id = user.getId();
         this.username = user.getUsername();
