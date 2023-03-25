@@ -8,6 +8,7 @@ import lombok.Setter;
 @Setter
 public class JoinResDto {
 
+
     private Long id;
     private String username;
     private String fullname;
