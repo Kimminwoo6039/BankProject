@@ -16,6 +16,13 @@ import javax.validation.constraints.Size;
 @ToString
 public class JoinReqDto {
 
+    @Getter
+    @Setter
+    public static class LoginReqDto {
+        private String username;
+        private String password;
+    }
+
     /// TODO : 유효성 검사
     // 영문,숫자는 되고 길이 최소 2~20자이내
     @Pattern(regexp = "^[a-zA-Z0-9]{2,20}$",message = "영문/숫자 2~20자 이내로 작성해주세요.")
