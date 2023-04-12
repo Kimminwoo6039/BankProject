@@ -22,6 +22,7 @@ public class JwtAuthenticationFilter extends UsernamePasswordAuthenticationFilte
 
     private AuthenticationManager authenticationManager;
 
+
     public JwtAuthenticationFilter(AuthenticationManager authenticationManager) {
         super(authenticationManager);
         setFilterProcessesUrl("/api/login");
