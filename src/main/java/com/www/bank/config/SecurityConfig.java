@@ -1,6 +1,7 @@
 package com.www.bank.config;
 
 import com.fasterxml.jackson.databind.ObjectMapper;
+import com.www.bank.config.jwt.JwtAuthenticationFilter;
 import com.www.bank.domain.user.UserEnum;
 import com.www.bank.dto.ResponseDto;
 import com.www.bank.util.CustomResponseUtil;
@@ -8,8 +9,11 @@ import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
+import org.springframework.security.authentication.AuthenticationManager;
 import org.springframework.security.config.annotation.web.builders.HttpSecurity;
+import org.springframework.security.config.annotation.web.configurers.AbstractHttpConfigurer;
 import org.springframework.security.config.http.SessionCreationPolicy;
+import org.springframework.security.core.Authentication;
 import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.security.web.SecurityFilterChain;
 import org.springframework.web.cors.CorsConfiguration;
@@ -28,6 +32,16 @@ public class SecurityConfig {
     }
     
     /// TODO : JWT 필터 등록이 필요함
+    public class CustomSecurityFilterManager extends AbstractHttpConfigurer<CustomSecurityFilterManager,HttpSecurity> {
+
+        @Override
+        public void configure(HttpSecurity builder) throws Exception {
+            /// TODO : 필터만들고 59 번 만들어줌
+            AuthenticationManager authenticationManager = builder.getSharedObject(AuthenticationManager.class);
+            builder.addFilter(new JwtAuthenticationFilter(authenticationManager));
+            super.configure(builder);
+        }
+    }
 
     /// TODO : JWT 서버를 만들 예정 !! Sesson 사용안하는 방식
     @Bean
@@ -41,6 +55,9 @@ public class SecurityConfig {
         /// TODO: react , 앱으로 요청할대
         http.formLogin().disable(); /// TODO : 아이디,비밀번호 전송 방식을 사용안하겠다는 뜻 , 리액트나 앱으로 던져줄때 사용
         http.httpBasic().disable(); /// TODO : httpBasic 은 브라우저가 팝업창을 이용해서 사용자 인증을 진행한다.
+
+        /// TODO : 필터 적용 (39번)
+        http.apply(new CustomSecurityFilterManager());
 
         // Exception 가로채기 **
         http.exceptionHandling().authenticationEntryPoint( (request,response,authenticationException)->{ /// TODO : 예외처리

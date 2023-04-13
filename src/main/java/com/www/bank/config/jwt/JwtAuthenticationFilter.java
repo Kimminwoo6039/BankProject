@@ -1,10 +1,13 @@
 package com.www.bank.config.jwt;
 
 import com.fasterxml.jackson.databind.ObjectMapper;
+import com.www.bank.config.SecurityConfig;
 import com.www.bank.config.auth.LoginUser;
 import com.www.bank.dto.user.JoinReqDto;
 import com.www.bank.dto.user.JoinResDto;
 import com.www.bank.util.CustomResponseUtil;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 import org.springframework.security.authentication.AuthenticationManager;
 import org.springframework.security.authentication.InternalAuthenticationServiceException;
 import org.springframework.security.authentication.UsernamePasswordAuthenticationToken;
@@ -20,6 +23,8 @@ import java.io.IOException;
 
 public class JwtAuthenticationFilter extends UsernamePasswordAuthenticationFilter {
 
+    private final Logger log = LoggerFactory.getLogger(JwtAuthenticationFilter.class);
+
     private AuthenticationManager authenticationManager;
 
 
@@ -33,6 +38,7 @@ public class JwtAuthenticationFilter extends UsernamePasswordAuthenticationFilte
     @Override
     public Authentication attemptAuthentication(HttpServletRequest request, HttpServletResponse response) throws AuthenticationException {
 
+        log.debug("디버그 : attemptAuthentication 호출됨");
         try {
             ObjectMapper om = new ObjectMapper();
             JoinReqDto.LoginReqDto loginReqDto = om.readValue(request.getInputStream(), JoinReqDto.LoginReqDto.class);
@@ -59,6 +65,8 @@ public class JwtAuthenticationFilter extends UsernamePasswordAuthenticationFilte
     // TODO : authentication 이 잘작동하면 successfulAuthentication 호출된다 . try 부분
     @Override
     protected void successfulAuthentication(HttpServletRequest request, HttpServletResponse response, FilterChain chain, Authentication authResult) throws IOException, ServletException {
+        log.debug("디버그 : 로그인이 된거임 호출됨");
+
         LoginUser loginUser = (LoginUser)authResult.getPrincipal();
         String jwtToken = JwtProcess.create(loginUser);
         response.addHeader(jwtVo.HEADER,jwtToken);
