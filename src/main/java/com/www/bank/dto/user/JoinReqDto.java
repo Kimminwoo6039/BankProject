@@ -34,6 +34,7 @@ public class JoinReqDto {
     @Size(min = 4,max = 20)
     private String password;
 
+
     // 이메일 형식
     @Pattern(regexp = "^[a-zA-Z0-9]{2,10}@[a-zA-Z0-9]{2,6}\\.[a-zA-Z]{2,3}$",message = "이메일형식으로 작성해주세요.")
     @NotEmpty
