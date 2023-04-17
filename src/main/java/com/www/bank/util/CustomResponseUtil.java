@@ -37,6 +37,7 @@ public class CustomResponseUtil {
         } catch (Exception e) {
             log.error("서버 파싱에러");
         }
-
     }
+
+
 }
