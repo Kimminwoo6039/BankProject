@@ -76,6 +76,7 @@ public class JwtAuthenticationFilter extends UsernamePasswordAuthenticationFilte
 
         ///TODO : 토큰을 생성하고 리턴함.. 뿌려줌
 
+
         LoginUser loginUser = (LoginUser)authResult.getPrincipal();
         String jwtToken = JwtProcess.create(loginUser);
         response.addHeader(jwtVo.HEADER,jwtToken);
