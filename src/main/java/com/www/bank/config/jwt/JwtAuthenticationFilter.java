@@ -1,7 +1,6 @@
 package com.www.bank.config.jwt;
 
 import com.fasterxml.jackson.databind.ObjectMapper;
-import com.www.bank.config.SecurityConfig;
 import com.www.bank.config.auth.LoginUser;
 import com.www.bank.dto.user.JoinReqDto;
 import com.www.bank.dto.user.JoinResDto;
@@ -26,7 +25,7 @@ public class JwtAuthenticationFilter extends UsernamePasswordAuthenticationFilte
 
     private final Logger log = LoggerFactory.getLogger(JwtAuthenticationFilter.class);
 
-    private AuthenticationManager authenticationManager;
+    private final AuthenticationManager authenticationManager;
 
 
     public JwtAuthenticationFilter(AuthenticationManager authenticationManager) {
