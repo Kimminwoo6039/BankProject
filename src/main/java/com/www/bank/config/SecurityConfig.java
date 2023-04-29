@@ -47,6 +47,7 @@ public class SecurityConfig {
     }
 
 
+
     /// TODO : JWT 서버를 만들 예정 !! Sesson 사용안하는 방식
     @Bean
     public SecurityFilterChain filterChain(HttpSecurity http) throws Exception {
