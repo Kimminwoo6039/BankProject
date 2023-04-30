@@ -44,6 +44,7 @@ public class SecurityConfig {
             builder.addFilter(new JwtAuthenticationFilter(authenticationManager));
             super.configure(builder);
         }
+        
     }
 
 
