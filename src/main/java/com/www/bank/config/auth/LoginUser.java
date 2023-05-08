@@ -22,6 +22,7 @@ public class LoginUser implements UserDetails {
         Collection<GrantedAuthority> authorities = new ArrayList<>();
         authorities.add( ()-> "ROLE_" + user.getRole());
         return null;
+
     }
 
     @Override
